@@ -14,12 +14,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/* @RestController Marks this class as a Spring MVC REST controller,
+* It handles HTTP requests and returns JSON or other response bodies directly.
+* @RequestMapping - Base URL path for all endpoints in this controller
+* @RequiredArgsConstructor - Lombok annotation that generates a constructor with required arguments for all final fields*/
+
 @RestController
 @RequestMapping("/api/movie")
 @RequiredArgsConstructor
 public class MovieController {
 
-    private final MovieService movieService;
+    private final MovieService movieService; //service dependency to handle business logic
 
     @PostMapping("/save")
     public ResponseEntity<?> saveMovie(@RequestBody MovieDto movieDto){

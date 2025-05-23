@@ -12,6 +12,7 @@ import java.util.List;
 public class DataLoader {
 
     /* CommandLineRunner: A special Spring Boot interface that runs code after the application starts.
+    * It is a functional interface which has run method returns void
     * @Bean: Used to declare a Spring-managed bean.
     * @Configuration: Marks this class as a configuration class that can define beans.*/
 

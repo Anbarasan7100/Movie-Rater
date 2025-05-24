@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,13 @@ public class MovieServiceImpl implements MovieService{
     @Transactional
     @Override
     public String saveMovieDetail(MovieDto movieDto) {
+
+        Optional<Movie> existingMovie = movieRepository.findByTitleAndReleaseYear(
+                movieDto.getTitle(), movieDto.getReleaseYear()
+        );
+        if (existingMovie.isPresent()) {
+            return "Movie already exists: " + existingMovie.get().getTitle();
+        }
 
         Language language = languageRepository.findByName(movieDto.getLanguageDto().getName())
                 .orElseGet(() -> languageRepository.save(Language.builder()
@@ -48,7 +56,7 @@ public class MovieServiceImpl implements MovieService{
             actors.add(actor);
         }
 
-        Movie movie = Movie.builder().title(movieDto.getTitle())
+        Movie movie =Movie.builder().title(movieDto.getTitle())
                 .industry(movieDto.getIndustry())
                 .releaseYear(movieDto.getReleaseYear())
                 .imdbRating(movieDto.getImdbRating())
@@ -72,6 +80,7 @@ public class MovieServiceImpl implements MovieService{
         return "Movie Saved Successfully " + savedMovie.getTitle();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public TopMovieDto getHighestRatedMovie() {
 
@@ -87,6 +96,7 @@ public class MovieServiceImpl implements MovieService{
         return topMovieDto;
     }
 
+    @Transactional (readOnly = true)
     @Override
     public List<MovieLanguageDto> getMoviesByLanguage(String languageName) {
 
@@ -121,6 +131,7 @@ public class MovieServiceImpl implements MovieService{
         return movieLanguageDtoList;
     }
 
+    @Transactional (readOnly = true)
     @Override
     public List<MovieDto> getMoviesByRatingRange(double minRating, double maxRating) {
         List<Movie> movies = movieRepository.findByImdbRatingBetween(minRating, maxRating);

@@ -3,6 +3,18 @@ package com.tekpyramid.MovieRater;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/*SpringApplication.run(Class<?> primarySource, String... args) is called.
+* SpringApplication is instantiated.
+* Application environment is prepared using SpringApplicationRunListeners.
+* ApplicationArguments are parsed from the provided command-line arguments.
+* Application context is initialized.
+* Autoconfiguration classes are applied.
+* Log configurations are initialized.
+* Application context refreshed.
+8. Application started, and CommandLineRunner and ApplicationRunner beans are executed.
+* Application is ready to handle requests.
+* Application fully started.*/
+
 @SpringBootApplication
 public class MovieRaterApplication {
 

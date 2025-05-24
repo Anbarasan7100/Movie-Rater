@@ -30,13 +30,20 @@ public class MovieController {
     public ResponseEntity<?> saveMovie(@RequestBody MovieDto movieDto){
 
         String response = movieService.saveMovieDetail(movieDto);
-
+        /* Handles HTTP POST requests at /api/movie/save.
+        * Expects the request body to contain JSON representing a movie, mapped to MovieDto.
+        * Calls the service layer to save the movie details and gets a response string.*/
+        /* Creates new ApiResponse object to wrap the result
+         * Populates the api response object by:
+         * Http Status : 201 CREATED
+         * Set message : save message
+         * Data : response from the service layer */
         ApiResponse apiResponse = new ApiResponse();
-        apiResponse.setStatus(HttpStatus.ACCEPTED);  //Created
+        apiResponse.setStatus(HttpStatus.CREATED);
         apiResponse.setMessage("Movie details added successfully");
         apiResponse.setData(response);
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(apiResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @GetMapping("/topRated")

@@ -11,5 +11,5 @@ public interface MovieRepository extends JpaRepository<Movie,Integer> {
     Movie findTopByOrderByImdbRatingDesc();
     List<Movie> findByLanguage_Name(String languageName);
     List<Movie> findByImdbRatingBetween(double startRating, double endRating);
-
+    Optional<Movie> findByTitleAndReleaseYear(String title, int releaseYear);
 }
